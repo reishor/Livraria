@@ -1,0 +1,56 @@
+CREATE SCHEMA `livraria` DEFAULT CHARACTER SET utf8mb4 ;
+
+USE livraria;
+
+CREATE TABLE editoras(
+    id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    endereco VARCHAR(255) NOT NULL,
+    cidade VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    telefone VARCHAR(45) NOT NULL,
+    createAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP()
+);
+
+CREATE TABLE livros(
+    id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    idEditora INT(11) NOT NULL,
+    titulo VARCHAR(255) NOT NULL,
+    totalPaginas INT(11) NOT NULL,
+    edicao VARCHAR(255),
+    isbn VARCHAR(45),
+    ano INT(4),
+    fotoCapa VARCHAR(255),
+    createAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+    FOREIGN KEY (idEditora) REFERENCES editora(id)
+);
+
+CREATE TABLE autores(
+    id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    formacao VARCHAR(255) NOT NULL,
+    foto VARCHAR(255) NOT NULL,
+    createAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP()
+);
+
+CREATE TABLE livro_autor(
+    id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    idLivro INT(11) NOT NULL,
+    idAutor INT(11) NOT NULL,
+    createAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+    FOREIGN KEY (idLivro) REFERENCES livros(id),
+    FOREIGN KEY (idAutor) REFERENCES autores(id)
+);
+
+CREATE VIEW vw_vinculo AS SELECT 
+    LI.idAutor,
+    LI.idLivro,
+    LIVROS.titulo,
+    AUTORES.nome
+FROM livro_autor LI
+INNER JOIN livros LIVROS ON LI.idLivro = LIVROS.id
+INNER JOIN autores AUTORES ON LI.idAutor = AUTORES.id
+;
+
+

@@ -1,0 +1,7 @@
+1-Criar a estrutura do projeto (MVC) (OK)
+2-Criar a estrutura do banco de dados (OK)
+3-Criar o arquivo de conexão com o banco de dados (OK)
+4-Criar as views (camada visual)
+5-Criar os models (ações no banco de dados - INSERT - UPDATE - DELETE - SELECT - "CRUD")
+6-Criar os controllers (triggers de ações)
+7-Testar
